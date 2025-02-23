@@ -1,0 +1,15 @@
+Resources:
+   myInstance:
+     Type: 'AWS::EC2::Instance'
+     Properties: 
+        ImageId: ami-0a70b9d193ae8a799
+        InstanceType: t2.micro
+        KeyName: my-key-pair
+        SecurityGroupIds:
+          - sg-12a4c434
+        UserData:
+          Fn::Base64: !Sub |
+             #!/bin/bash
+             yum update -y
+             service httpd start
+             chkconfig httpd on
