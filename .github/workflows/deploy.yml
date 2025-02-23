@@ -29,14 +29,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ca-central-1  
-      - name: Check Stack Status
+      - name: Check if Stack Exists
         run: |
-          STATUS=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].StackStatus" --output text)
-          echo "Stack status: $STATUS"
-          if [ "$STATUS" == "ROLLBACK_COMPLETE" ]; then
-            echo "Stack is in ROLLBACK_COMPLETE state. Deleting..."
-            aws cloudformation delete-stack --stack-name "$STACK_NAME"
-            aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME"
+          STATUS=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].StackStatus" --output text --no-paginate || echo "STACK_NOT_FOUND")
+          if [ "$STATUS" == "STACK_NOT_FOUND" ]; then
+            echo "Stack does not exist, proceeding to create a new stack."
+          else
+            echo "Stack exists with status: $STATUS"
+            if [ "$STATUS" == "DELETE_IN_PROGRESS" ]; then
+              echo "Stack is being deleted, please wait until the delete process is complete."
+              exit 1
+            fi
+            if [ "$STATUS" == "ROLLBACK_COMPLETE" ]; then
+              echo "Stack is in ROLLBACK_COMPLETE state. Deleting the stack..."
+              aws cloudformation delete-stack --stack-name "$STACK_NAME"
+              aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME"
+            fi
           fi
       - name: Deploy CloudFormation Stack
         run: |
