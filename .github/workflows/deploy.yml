@@ -16,6 +16,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      STACK_NAME: "my-cloudformation-stack"  # Define stack name as a variable
 
     steps:
       - name: Checkout Repository
@@ -29,15 +31,16 @@ jobs:
           aws-region: ca-central-1  
       - name: Check Stack Status
         run: |
-          STATUS=$(aws cloudformation describe-stacks --stack-name my-cloudformation-stack --query "Stacks[0].StackStatus" --output text)
+          STATUS=$(aws cloudformation describe-stacks --stack-name "$STACK_NAME" --query "Stacks[0].StackStatus" --output text)
           echo "Stack status: $STATUS"
           if [ "$STATUS" == "ROLLBACK_COMPLETE" ]; then
             echo "Stack is in ROLLBACK_COMPLETE state. Deleting..."
-            aws cloudformation delete-stack --stack-name my-cloudformation-stack
+            aws cloudformation delete-stack --stack-name "$STACK_NAME"
+            aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME"
           fi
       - name: Deploy CloudFormation Stack
         run: |
           aws cloudformation deploy \
-            --stack-name my-cloudformation-stack \
+            --stack-name "$STACK_NAME" \
             --template-file cloud-formation/deploy.yml \
             --capabilities CAPABILITY_NAMED_IAM
