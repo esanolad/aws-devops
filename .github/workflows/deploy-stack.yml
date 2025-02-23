@@ -14,11 +14,10 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  deploy:
+  check-stack:
     runs-on: ubuntu-latest
     env:
       STACK_NAME: "my-cloudformation-stack"  # Define stack name as a variable
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -46,6 +45,21 @@ jobs:
               aws cloudformation wait stack-delete-complete --stack-name "$STACK_NAME"
             fi
           fi
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      STACK_NAME: "my-cloudformation-stack"  # Define stack name as a variable
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ca-central-1  
       - name: Deploy CloudFormation Stack
         run: |
           aws cloudformation deploy \
