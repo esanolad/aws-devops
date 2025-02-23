@@ -12,15 +12,45 @@ Parameters:
 #     Type: 'AWS::EC2::KeyPair::KeyName'
 #     ConstraintDescription: must be the name of an existing EC2 KeyPair.
 Resources:
-  myStageVPC:
+  myVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
       EnableDnsSupport: 'true'
       EnableDnsHostnames: 'true'
       Tags:
-       - Key: stack
-         Value: staging
+        - Key: stack
+          Value: smart-sol
+        - Key: name
+          Value: smart-sol-vpc
+  devSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "cac1-az1"
+      Tags:
+      - Key: stack
+        Value: dev
+  stagingSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: "cac1-az2"
+      Tags:
+      - Key: stack
+        Value: staging
+  prodSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref myVPC
+      CidrBlock: 10.0.4.0/24
+      AvailabilityZone: "cac1-az4"
+      Tags:
+      - Key: stack
+        Value: production
+            
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
