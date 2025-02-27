@@ -81,10 +81,10 @@ Resources:
         Value: sol-prod-subnet        
   InstanceSSHSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
-    DependsOn: !Ref solVPC
+    DependsOn: solVPC
     Properties:
       GroupDescription: Enable SSH access via port 22
-      VpcId: solVPC
+      VpcId: !Ref solVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
@@ -99,9 +99,10 @@ Resources:
         Value: sol-ssh-sg       
   InstanceHTTPSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
+    DependsOn: solVPC
     Properties:
       GroupDescription: Enable SSH and WEB Access
-      VpcId: solVPC
+      VpcId: !Ref solVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '80'
