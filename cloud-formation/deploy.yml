@@ -21,7 +21,7 @@ Resources:
       Tags:
         - Key: stack
           Value: smart-sol
-        - Key: name
+        - Key: Name
           Value: smart-sol-vpc
   solInternetGateway:
     Type: AWS::EC2::InternetGateway
