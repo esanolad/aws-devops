@@ -124,4 +124,5 @@ Outputs:
     Description: Security Group to be used in EC2
     Value: !GetAtt 
       - InstanceSSHSecurityGroup
-      - GroupId
+      - InstanceHTTPSecurityGroup
+      - solVPC
