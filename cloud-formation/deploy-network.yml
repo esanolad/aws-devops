@@ -84,7 +84,7 @@ Resources:
       MapPublicIpOnLaunch: true    
   InstanceSSHSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
-    DependsOn: solVPC
+    DependsOn: SolVPC
     Properties:
       GroupDescription: Enable SSH access via port 22
       VpcId: !Ref SolVPC
