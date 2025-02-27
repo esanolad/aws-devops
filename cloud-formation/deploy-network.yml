@@ -84,7 +84,7 @@ Resources:
     DependsOn: !Ref solVPC
     Properties:
       GroupDescription: Enable SSH access via port 22
-      VpcId: !Ref solVPC
+      VpcId: solVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '22'
@@ -94,11 +94,14 @@ Resources:
           FromPort: '9100'
           ToPort: '9100'
           CidrIp: !Ref SSHLocation
+      Tags:
+      - Key: Name
+        Value: sol-ssh-sg       
   InstanceHTTPSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Enable SSH and WEB Access
-      VpcId: !Ref solVPC
+      VpcId: solVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '80'
@@ -112,6 +115,9 @@ Resources:
           FromPort: '443'
           ToPort: '443'
           CidrIp: !Ref SSHLocation  
+      Tags:
+      - Key: Name
+        Value: sol-http-sg    
 # Outputs:
 #   EC2SecurityGroup:
 #     Description: Security Group to be used in EC2
