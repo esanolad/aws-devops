@@ -63,7 +63,7 @@ Resources:
       VpcId:
         Ref: VPC
       InternetGatewayId:
-        Ref: myInternetGateway
+        Ref: solInternetGateway
   solRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
