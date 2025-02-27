@@ -120,9 +120,13 @@ Resources:
       - Key: Name
         Value: sol-http-sg    
 Outputs:
-  EC2SecurityGroup:
+  EC2SSHSecurityGroup:
     Description: Security Group to be used in EC2
     Value: !GetAtt 
       - InstanceSSHSecurityGroup
+      - GroupId
+  EC2HTTPSecurityGroup:
+    Description: Security Group to be used in EC2
+    Value: !GetAtt 
       - InstanceHTTPSecurityGroup
-      - solVPC
+      - GroupId
