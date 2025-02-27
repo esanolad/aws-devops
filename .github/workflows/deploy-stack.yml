@@ -65,5 +65,5 @@ jobs:
         run: |
           aws cloudformation deploy \
             --stack-name "$STACK_NAME" \
-            --template-file cloud-formation/deploy.yml \
+            --template-file cloud-formation/deploy-network.yml \
             --capabilities CAPABILITY_NAMED_IAM

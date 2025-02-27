@@ -1,0 +1,20 @@
+Resources:
+  Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  myInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties: 
+      ImageId: ami-0a70b9d193ae8a799
+      InstanceType: t2.micro
+      KeyName: my-key-pair
+      SecurityGroupIds:
+        - !Ref InstanceSSHSecurityGroup
+      UserData:
+        Fn::Base64: !Sub |
+            #!/bin/bash
+            yum update -y
+            service httpd start
+            chkconfig httpd on
