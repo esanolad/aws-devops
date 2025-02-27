@@ -17,7 +17,7 @@ jobs:
   check-stack:
     runs-on: ubuntu-latest
     env:
-      STACK_NAME: "my-cloudformation-stack"  # Define stack name as a variable
+      STACK_NAME: "sol-stack"  # Define stack name as a variable
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
