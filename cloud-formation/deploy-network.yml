@@ -134,3 +134,10 @@ Outputs:
       - GroupId
     Export:
       Name: !Sub '${AWS::StackName}-EC2HTTPSecurityGroup'
+  VPCId:
+    Description: ID of the VPC
+    Value: !GetAtt 
+      - solVPC
+      - VpcId
+    Export:
+      Name: !Sub '${AWS::StackName}-solVPCId'
