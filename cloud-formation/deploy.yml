@@ -59,7 +59,7 @@ Resources:
       Tags:
       - Key: stack
         Value: dev
-      - key: Name
+      - Key: Name
         Value: sol-dev-subnet
   stagingSubnet:
     Type: AWS::EC2::Subnet
@@ -70,7 +70,7 @@ Resources:
       Tags:
       - Key: stack
         Value: staging
-      - key: Name
+      - Key: Name
         Value: sol-staging-subnet        
   prodSubnet:
     Type: AWS::EC2::Subnet
@@ -81,7 +81,7 @@ Resources:
       Tags:
       - Key: stack
         Value: production
-      - key: Name
+      - Key: Name
         Value: sol-prod-subnet        
   InstanceSSHSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
