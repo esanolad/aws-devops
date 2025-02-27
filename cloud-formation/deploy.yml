@@ -12,7 +12,7 @@ Parameters:
 #     Type: 'AWS::EC2::KeyPair::KeyName'
 #     ConstraintDescription: must be the name of an existing EC2 KeyPair.
 Resources:
-  myVPC:
+  solVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
@@ -26,7 +26,7 @@ Resources:
   devSubnet:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref myVPC
+      VpcId: !Ref solVPC
       CidrBlock: 10.0.1.0/24
       AvailabilityZone: "ca-central-1a"
       Tags:
@@ -35,7 +35,7 @@ Resources:
   stagingSubnet:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref myVPC
+      VpcId: !Ref solVPC
       CidrBlock: 10.0.2.0/24
       AvailabilityZone: "ca-central-1b"
       Tags:
@@ -44,14 +44,45 @@ Resources:
   prodSubnet:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref myVPC
+      VpcId: !Ref solVPC
       CidrBlock: 10.0.4.0/24
       AvailabilityZone: "ca-central-1d"
       Tags:
       - Key: stack
         Value: production
-            
-  InstanceSecurityGroup:
+  
+  solInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: stack
+        Value: production
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      InternetGatewayId:
+        Ref: myInternetGateway
+  solRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: solVPC
+
+  solRoute:
+    Type: AWS::EC2::Route
+    DependsOn: GatewayToInternet
+    Properties:
+       RouteTableId:
+         Ref: solRouteTable
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId:
+         Ref: myInternetGateway
+
+
+
+  InstanceSSHSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: Enable SSH access via port 22
