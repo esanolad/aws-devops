@@ -125,8 +125,12 @@ Outputs:
     Value: !GetAtt 
       - InstanceSSHSecurityGroup
       - GroupId
+    Export:
+      Name: !Sub '${AWS::StackName}-EC2SSHSecurityGroup'
   EC2HTTPSecurityGroup:
     Description: Security Group to be used in EC2
     Value: !GetAtt 
       - InstanceHTTPSecurityGroup
       - GroupId
+    Export:
+      Name: !Sub '${AWS::StackName}-EC2HTTPSecurityGroup'
