@@ -27,6 +27,9 @@ Resources:
       SecurityGroupIds:
         - !ImportValue 
           'Fn::Sub': '${SecurityGroupStackName}-EC2HTTPSecurityGroup'
+      SubnetId: subnet-0865154788c4fabff
+        # - !ImportValue 
+        #   'Fn::Sub': '${SecurityGroupStackName}-devSubnetId'
       UserData:
         Fn::Base64: !Sub |
             #!/bin/bash

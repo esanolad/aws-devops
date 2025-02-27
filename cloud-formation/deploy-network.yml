@@ -57,6 +57,7 @@ Resources:
         Value: dev
       - Key: Name
         Value: sol-dev-subnet
+      MapPublicIpOnLaunch: true
   stagingSubnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -67,7 +68,8 @@ Resources:
       - Key: stack
         Value: staging
       - Key: Name
-        Value: sol-staging-subnet        
+        Value: sol-staging-subnet   
+      MapPublicIpOnLaunch: true     
   prodSubnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -78,7 +80,8 @@ Resources:
       - Key: stack
         Value: production
       - Key: Name
-        Value: sol-prod-subnet        
+        Value: sol-prod-subnet    
+      MapPublicIpOnLaunch: true    
   InstanceSSHSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     DependsOn: solVPC
