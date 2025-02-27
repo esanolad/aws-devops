@@ -61,7 +61,7 @@ Resources:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId:
-        Ref: VPC
+        Ref: solVPC
       InternetGatewayId:
         Ref: solInternetGateway
   solRouteTable:
