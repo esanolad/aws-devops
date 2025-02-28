@@ -46,6 +46,11 @@ Resources:
        DestinationCidrBlock: 0.0.0.0/0
        GatewayId:
          Ref: SolInternetGateway
+  SetMainRouteTable:
+    Type: "AWS::EC2::VPCDefaultRouteTable"
+    Properties:
+      VpcId: !Ref SolVPC
+      DefaultRouteTableId: !Ref SolRouteTable
   DevSubnet:
     Type: AWS::EC2::Subnet
     Properties:

@@ -18,7 +18,7 @@ Parameters:
     MinLength: '1'
     MaxLength: '255'    
 Resources:
-  myInstance:
+  DevInstance:
     Type: 'AWS::EC2::Instance'
     Properties: 
       ImageId: ami-055943271915205db
@@ -26,14 +26,27 @@ Resources:
       KeyName: !Ref KeyName
       SecurityGroupIds:
         - !ImportValue 
-          'Fn::Sub': '${SecurityGroupStackName}-EC2HTTPSecurityGroup'
-      SubnetId: !ImportValue
-        Fn::Sub: '${SecurityGroupStackName}-devSubnetId'
-
-        #   'Fn::Sub': '${SecurityGroupStackName}-devSubnetId'
+          Fn::Sub: '${SecurityGroupStackName}-EC2HTTPSecurityGroup'
+      SubnetId: 
+        !ImportValue
+        Fn::Sub: '${SecurityGroupStackName}-DevSubnetId'
       UserData:
         Fn::Base64: !Sub |
             #!/bin/bash
-            yum update -y
-            service httpd start
-            chkconfig httpd on
+            sudo apt update -y
+            apt install apache fail2ban -y
+      Tags:
+        - Key: Name
+          Value: Dev-Server
+  
+Outputs:
+  PublicDNS:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !GetAtt 
+      - DevInstance
+      - PublicDnsName
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value: !GetAtt 
+      - DevInstance
+      - PublicIp
