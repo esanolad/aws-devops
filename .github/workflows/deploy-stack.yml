@@ -85,8 +85,7 @@ jobs:
           aws-region: ca-central-1  
       - name: Deploy CloudFormation Stack
         run: |
-          aws cloudformation deploy \
+            aws cloudformation deploy \
             --stack-name "$STACK_NAME" \
             --template-file cloud-formation/deploy-servers.yml \
-            --capabilities CAPABILITY_NAMED_IAM
-            --parameter-overrides SecurityGroupStackName=sol-stack  KeyName=sol-key
+            --parameter-overrides "SecurityGroupStackName=sol-stack"  "KeyName=sol-key"
