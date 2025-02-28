@@ -34,11 +34,11 @@ Resources:
         Fn::Base64: !Sub |
             #!/bin/bash
             sudo apt update -y
-            apt install apache fail2ban -y
+            sudo apt install apache2 fail2ban -y
+            echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCjR2hJty3eVjKaBVsQAAAIPTHbW0w+8rYwZ/07XqjTI6GHSAbFzkri+lFvw+18+HIeH/Frzb/KBhYMZUOWUf2y7cqAUK3aj+dh2OhP5yhtWC339leorxEFIWlyB/qmTLAUUljyOIYozNX9cShboJFT29PbsGiYBK+5rQbxDNpIglUSJPe81H1JjYCuA4xg9WyAQ5QgXW3kGO7W1lnFXIuh17DdKwnuk8dbSbRCHOLYD2eXdU+tICo1yV7JVqA1xQzY2ENsREylFeLk4eaCaGV2gOfNU3TKpR1AhISvelHQtCnPC0iBgf/sJMpsgaHC6xWoIuSDe/uZ3asSw0FspZJCEOG7RRRP1brxda7KLQA6pZ6pRA3DjObBmrEgIwAqX6C9aV1BoZLdEFHDTfJLAAxgzx7VoTooMbqga59Qzp6bOGYzLZFYI0f10vSEtkXsZSg0SFn3kqDE2MCg0BhJTzOcOLQH+d1C9uwfMNrv/nVZ2cnh2ZDl276S4R1snBSOhdk= esanolad@oladipupos-air" >> /home/ubuntu/.ssh/authorized_keys
       Tags:
         - Key: Name
           Value: Dev-Server
-  
 Outputs:
   PublicDNS:
     Description: Public DNSName of the newly created EC2 instance
