@@ -89,3 +89,4 @@ jobs:
             --stack-name "$STACK_NAME" \
             --template-file cloud-formation/deploy-servers.yml \
             --capabilities CAPABILITY_NAMED_IAM
+            --parameter-overrides SecurityGroupStackName=sol-stack  KeyName=sol-key
