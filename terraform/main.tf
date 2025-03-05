@@ -11,3 +11,11 @@ provider "aws" {
   region = "ca-central-1"
   
 }
+
+variable "sol_tf_prefix" {
+  default = "sol_tf"
+}
+
+variable "sol_tf_users" {
+  default = ["sola", "maja", "kama"]
+}

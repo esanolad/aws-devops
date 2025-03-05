@@ -3,5 +3,5 @@ output "aws_s3_bucket_id" {
 }
 
 output "aws_iam_user_id" {
-  value=aws_iam_user.my_aws_iam_user.unique_id
+  value=aws_iam_user.my_aws_iam_user[1].unique_id
 }
