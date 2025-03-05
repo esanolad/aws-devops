@@ -26,8 +26,10 @@ resource "aws_s3_bucket_versioning" "tf_versioning_example" {
 }
 
 resource "aws_iam_user" "my_aws_iam_user" {
-  count = length(var.sol_tf_users)
-  name = "${var.sol_tf_prefix}_iam_user_${var.sol_tf_users[count.index]}"
+  # count = length(var.sol_tf_users)
+  # name = "${var.sol_tf_prefix}_iam_user_${var.sol_tf_users[count.index]}"
   # name = "${var.sol_tf_prefix}_iam_user_${count.index}"
+  for_each = toset(var.sol_tf_users)
+  name = each.value
 }
 

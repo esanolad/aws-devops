@@ -17,5 +17,5 @@ variable "sol_tf_prefix" {
 }
 
 variable "sol_tf_users" {
-  default = ["sola", "maja", "kama"]
+  default = ["dew", "msa", "sola", "maja", "kama"]
 }
