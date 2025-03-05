@@ -13,7 +13,7 @@ resource "aws_s3_bucket" "tf_aws_s3_bucket" {
   #   enabled = true
   # }
   tags = {
-    Name = "${var.sol_tf_prefix}_bucket"
+    Name        = "${var.sol_tf_prefix}_bucket"
     Environment = "Dev"
   }
 }
@@ -29,7 +29,12 @@ resource "aws_iam_user" "my_aws_iam_user" {
   # count = length(var.sol_tf_users)
   # name = "${var.sol_tf_prefix}_iam_user_${var.sol_tf_users[count.index]}"
   # name = "${var.sol_tf_prefix}_iam_user_${count.index}"
-  for_each = toset(var.sol_tf_users)
-  name = each.value
+  #for_each = toset(var.sol_tf_users)
+  for_each = var.sol_tf_users
+  name     = each.key
+  tags = {
+    group   = each.value.group
+    country = each.value.country
+  }
 }
 

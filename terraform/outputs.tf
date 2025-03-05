@@ -1,5 +1,5 @@
 output "aws_s3_bucket_id" {
-  value=aws_s3_bucket.tf_aws_s3_bucket.bucket_domain_name
+  value = aws_s3_bucket.tf_aws_s3_bucket.bucket_domain_name
 }
 
 # output "aws_iam_user_id" {

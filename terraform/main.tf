@@ -9,7 +9,7 @@ terraform {
 
 provider "aws" {
   region = "ca-central-1"
-  
+
 }
 
 variable "sol_tf_prefix" {
