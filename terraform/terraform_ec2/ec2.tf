@@ -27,7 +27,7 @@ resource "aws_instance" "my_instance" {
       "sudo apt install apache2 -y",
       "cd /var/www/html/",
       "sudo rm -rf *",
-      "echo Welcome to in28minutes - Virtual Server is at ${self.public_dns} | sudo tee /var/www/html/index.html"
+      "echo Welcome to webserver - Virtual Server is at ${self.public_dns} | sudo tee /var/www/html/index.html"
     ]
   }
 }
