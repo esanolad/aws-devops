@@ -6,7 +6,7 @@ terraform {
       version = "~> 5.0"
     }
   }
-  
+
   backend "s3" {
     bucket         = "ent-terraform-backend"
     key            = "appname/project/terraform.tfstate"
